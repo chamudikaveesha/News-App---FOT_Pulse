@@ -1,12 +1,8 @@
 
-
 // import 'package:flutter/material.dart';
 // import 'package:animate_do/animate_do.dart';
+// import 'package:google_fonts/google_fonts.dart';
 // import 'package:fotpulse/screens/home_screen.dart';
-
-// import '../widgets/custom_button.dart';
-// import '../widgets/custom_text_field.dart';
-// import '../utils/colors.dart';
 // import 'register_screen.dart';
 // import 'forgot_password_screen.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -48,11 +44,20 @@
 //         setState(() => _isLoading = false);
 //         ScaffoldMessenger.of(context).showSnackBar(
 //           SnackBar(
-//             content: const Text('Login successful!'),
-//             backgroundColor: AppColors.successColor,
+//             content: Row(
+//               children: [
+//                 const Icon(Icons.check_circle, color: Colors.white),
+//                 const SizedBox(width: 12),
+//                 Text(
+//                   'Login successful!',
+//                   style: GoogleFonts.inter(color: Colors.white),
+//                 ),
+//               ],
+//             ),
+//             backgroundColor: Colors.green,
 //             behavior: SnackBarBehavior.floating,
 //             shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(10),
+//               borderRadius: BorderRadius.circular(12),
 //             ),
 //           ),
 //         );
@@ -61,7 +66,6 @@
 //           context,
 //           MaterialPageRoute(builder: (context) => const HomeScreen()),
 //         );
-//         // TODO: Navigate to home screen here!
 //       } on FirebaseAuthException catch (e) {
 //         setState(() => _isLoading = false);
 //         String message = '';
@@ -73,7 +77,23 @@
 //           message = e.message ?? 'Login failed';
 //         }
 //         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(content: Text(message), backgroundColor: Colors.red),
+//           SnackBar(
+//             content: Row(
+//               children: [
+//                 const Icon(Icons.error, color: Colors.white),
+//                 const SizedBox(width: 12),
+//                 Text(
+//                   message,
+//                   style: GoogleFonts.inter(color: Colors.white),
+//                 ),
+//               ],
+//             ),
+//             backgroundColor: Colors.redAccent,
+//             behavior: SnackBarBehavior.floating,
+//             shape: RoundedRectangleBorder(
+//               borderRadius: BorderRadius.circular(12),
+//             ),
+//           ),
 //         );
 //       }
 //     }
@@ -121,14 +141,15 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     final size = MediaQuery.of(context).size;
-//     final double headerHeight = size.height * 0.20; // like RegisterScreen
-//     const double iconDiameter = 80;
+//     final double headerHeight = size.height * 0.20;
+//     const double iconDiameter = 100;
 //     const double iconOverlap = iconDiameter / 2;
 
 //     return Scaffold(
+//       backgroundColor: const Color(0xFF121212), // Dark background like developer screen
 //       body: Container(
 //         decoration: const BoxDecoration(
-//           // gradient: AppColors.backgroundGradient,
+//           color: Color(0xFF121212),
 //           image: DecorationImage(
 //             image: AssetImage('assets/shape1.png'),
 //             alignment: Alignment.topCenter,
@@ -141,8 +162,6 @@
 //               padding: const EdgeInsets.symmetric(horizontal: 24),
 //               child: Column(
 //                 children: [
-//                   // top system-bar padding already handled by SafeArea
-
 //                   // ── header space + animated person icon ──
 //                   Stack(
 //                     clipBehavior: Clip.none,
@@ -153,12 +172,12 @@
 //                         top: headerHeight - iconOverlap,
 //                         child: FadeInDown(
 //                           duration: const Duration(milliseconds: 800),
-//                           child: _buildProfileCircle(),
+//                           child: _buildModernProfileCircle(),
 //                         ),
 //                       ),
 //                     ],
 //                   ),
-//                   const SizedBox(height: 50),
+//                   const SizedBox(height: 60),
 
 //                   // ── form starts here ──
 //                   Form(
@@ -172,36 +191,34 @@
 //                           duration: const Duration(milliseconds: 800),
 //                           child: Text(
 //                             'Welcome Back!',
-//                             style: TextStyle(
+//                             style: GoogleFonts.inter(
 //                               fontSize: 28,
-//                               fontWeight: FontWeight.bold,
-//                               color: AppColors.textPrimary,
+//                               fontWeight: FontWeight.w700,
+//                               color: Colors.white,
 //                             ),
 //                           ),
 //                         ),
-//                         const SizedBox(height: 30),
+//                         const SizedBox(height: 8),
 //                         FadeInDown(
 //                           delay: const Duration(milliseconds: 400),
 //                           duration: const Duration(milliseconds: 800),
-//                           child: Align(
-//                             alignment: Alignment.centerLeft,
-//                             child: Text(
-//                               'Enter your email and password',
-//                               textAlign: TextAlign.left,
-//                               style: TextStyle(
-//                                 fontSize: 16,
-//                                 color: AppColors.textSecondary,
-//                               ),
+//                           child: Text(
+//                             'Enter your email and password',
+//                             textAlign: TextAlign.center,
+//                             style: GoogleFonts.inter(
+//                               fontSize: 16,
+//                               color: Colors.grey[400],
+//                               fontWeight: FontWeight.w500,
 //                             ),
 //                           ),
 //                         ),
-//                         const SizedBox(height: 20),
+//                         const SizedBox(height: 40),
 
-//                         // Email
+//                         // Email Field
 //                         FadeInLeft(
 //                           delay: const Duration(milliseconds: 600),
 //                           duration: const Duration(milliseconds: 800),
-//                           child: CustomTextField(
+//                           child: _buildModernTextField(
 //                             hintText: 'Email',
 //                             prefixIcon: Icons.email_outlined,
 //                             keyboardType: TextInputType.emailAddress,
@@ -221,11 +238,11 @@
 //                         ),
 //                         const SizedBox(height: 20),
 
-//                         // Password
+//                         // Password Field
 //                         FadeInRight(
 //                           delay: const Duration(milliseconds: 800),
 //                           duration: const Duration(milliseconds: 800),
-//                           child: CustomTextField(
+//                           child: _buildModernTextField(
 //                             hintText: 'Password',
 //                             prefixIcon: Icons.lock_outline,
 //                             suffixIcon:
@@ -250,7 +267,7 @@
 //                             },
 //                           ),
 //                         ),
-//                         const SizedBox(height: 16),
+//                         const SizedBox(height: 20),
 
 //                         // Remember & forgot
 //                         FadeInUp(
@@ -269,7 +286,16 @@
 //                                           (v) => setState(
 //                                             () => _rememberMe = v ?? false,
 //                                           ),
-//                                       activeColor: AppColors.primaryBlue,
+//                                       activeColor: Colors.redAccent,
+//                                       checkColor: Colors.white,
+//                                       fillColor: MaterialStateProperty.resolveWith(
+//                                         (states) {
+//                                           if (states.contains(MaterialState.selected)) {
+//                                             return Colors.redAccent;
+//                                           }
+//                                           return Colors.grey[700];
+//                                         },
+//                                       ),
 //                                       shape: RoundedRectangleBorder(
 //                                         borderRadius: BorderRadius.circular(4),
 //                                       ),
@@ -277,9 +303,10 @@
 //                                   ),
 //                                   Text(
 //                                     'Remember me',
-//                                     style: TextStyle(
-//                                       color: AppColors.textSecondary,
+//                                     style: GoogleFonts.inter(
+//                                       color: Colors.grey[400],
 //                                       fontSize: 14,
+//                                       fontWeight: FontWeight.w500,
 //                                     ),
 //                                   ),
 //                                 ],
@@ -288,8 +315,8 @@
 //                                 onTap: _navigateToForgotPassword,
 //                                 child: Text(
 //                                   'Forgot Password?',
-//                                   style: TextStyle(
-//                                     color: AppColors.primaryBlue,
+//                                   style: GoogleFonts.inter(
+//                                     color: Colors.redAccent,
 //                                     fontSize: 14,
 //                                     fontWeight: FontWeight.w600,
 //                                   ),
@@ -304,59 +331,19 @@
 //                         FadeInUp(
 //                           delay: const Duration(milliseconds: 1200),
 //                           duration: const Duration(milliseconds: 800),
-//                           child: CustomButton(
+//                           child: _buildModernButton(
 //                             text: 'Log In',
 //                             onPressed: _handleLogin,
 //                             isLoading: _isLoading,
 //                           ),
 //                         ),
-//                         const SizedBox(height: 24),
+//                         const SizedBox(height: 20),
 
 //                         // Google button
 //                         FadeInUp(
 //                           delay: const Duration(milliseconds: 1400),
 //                           duration: const Duration(milliseconds: 800),
-//                           child: SizedBox(
-//                             width: double.infinity,
-//                             height: 55,
-//                             child: ElevatedButton(
-//                               onPressed:
-//                                   () => ScaffoldMessenger.of(
-//                                     context,
-//                                   ).showSnackBar(
-//                                     const SnackBar(
-//                                       content: Text('Google sign in clicked!'),
-//                                     ),
-//                                   ),
-//                               style: ElevatedButton.styleFrom(
-//                                 backgroundColor: const Color(0xFFE3F2FD),
-//                                 foregroundColor: Colors.black87,
-//                                 elevation: 1,
-//                                 shape: RoundedRectangleBorder(
-//                                   borderRadius: BorderRadius.circular(25),
-//                                 ),
-//                               ),
-//                               child: Row(
-//                                 mainAxisAlignment: MainAxisAlignment.center,
-//                                 mainAxisSize: MainAxisSize.min,
-//                                 children: [
-//                                   Image.asset(
-//                                     'assets/google_logo.png',
-//                                     height: 24,
-//                                     width: 24,
-//                                   ),
-//                                   const SizedBox(width: 24),
-//                                   const Text(
-//                                     'Log In With Google',
-//                                     style: TextStyle(
-//                                       fontSize: 16,
-//                                       fontWeight: FontWeight.w500,
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
+//                           child: _buildGoogleButton(),
 //                         ),
 //                         const SizedBox(height: 32),
 
@@ -369,17 +356,18 @@
 //                             children: [
 //                               Text(
 //                                 "Don't have an account? ",
-//                                 style: TextStyle(
-//                                   color: AppColors.textSecondary,
+//                                 style: GoogleFonts.inter(
+//                                   color: Colors.grey[400],
 //                                   fontSize: 16,
+//                                   fontWeight: FontWeight.w500,
 //                                 ),
 //                               ),
 //                               GestureDetector(
 //                                 onTap: _navigateToRegister,
 //                                 child: Text(
 //                                   'Sign Up',
-//                                   style: TextStyle(
-//                                     color: AppColors.primaryBlue,
+//                                   style: GoogleFonts.inter(
+//                                     color: Colors.redAccent,
 //                                     fontSize: 16,
 //                                     fontWeight: FontWeight.w600,
 //                                   ),
@@ -402,54 +390,247 @@
 //   }
 
 //   // ─────────────────────────────────────────────────────────
-//   //  Helper widgets
+//   //  Modern Helper widgets with dark theme
 //   // ─────────────────────────────────────────────────────────
-//   Widget _buildProfileCircle() => Container(
-//     width: 80,
-//     height: 80,
+//   Widget _buildModernProfileCircle() => Container(
+//     width: 100,
+//     height: 100,
 //     decoration: BoxDecoration(
-//       color: Colors.white,
 //       shape: BoxShape.circle,
+//       border: Border.all(
+//         color: Colors.redAccent,
+//         width: 3,
+//       ),
 //       boxShadow: [
 //         BoxShadow(
-//           color: Colors.black.withOpacity(0.15),
-//           blurRadius: 15,
-//           offset: const Offset(0, 8),
+//           color: Colors.redAccent.withOpacity(0.3),
+//           blurRadius: 20,
+//           spreadRadius: 2,
 //         ),
 //       ],
 //     ),
-//     child: const Icon(Icons.person, color: Color(0xFF4A90E2), size: 70),
+//     child: CircleAvatar(
+//       radius: 47,
+//       backgroundColor: const Color(0xFF2A2A2A),
+//       child: Icon(
+//         Icons.person,
+//         color: Colors.grey[300],
+//         size: 50,
+//       ),
+//     ),
 //   );
 
-//   Widget _buildSocialIcon(IconData icon, Color color) => GestureDetector(
-//     onTap: () {
-//       // Handle social login
-//     },
-//     child: Container(
-//       width: 50,
-//       height: 50,
+//   Widget _buildModernTextField({
+//     required String hintText,
+//     required IconData prefixIcon,
+//     IconData? suffixIcon,
+//     bool obscureText = false,
+//     TextInputType keyboardType = TextInputType.text,
+//     TextEditingController? controller,
+//     VoidCallback? onSuffixIconPressed,
+//     String? Function(String?)? validator,
+//   }) {
+//     return Container(
 //       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(12),
+//         color: const Color(0xFF1E1E1E),
+//         borderRadius: BorderRadius.circular(16),
+//         border: Border.all(color: Colors.grey[700]!, width: 1),
 //         boxShadow: [
 //           BoxShadow(
-//             color: Colors.black.withOpacity(0.1),
+//             color: Colors.black.withOpacity(0.2),
 //             blurRadius: 8,
 //             offset: const Offset(0, 2),
 //           ),
 //         ],
 //       ),
-//       child: Icon(icon, color: color, size: 28),
-//     ),
-//   );
-// }
+//       child: TextFormField(
+//         controller: controller,
+//         keyboardType: keyboardType,
+//         obscureText: obscureText,
+//         validator: validator,
+//         style: GoogleFonts.inter(
+//           color: Colors.white,
+//           fontSize: 16,
+//           fontWeight: FontWeight.w500,
+//         ),
+//         decoration: InputDecoration(
+//           hintText: hintText,
+//           hintStyle: GoogleFonts.inter(
+//             color: Colors.grey[500],
+//             fontSize: 16,
+//             fontWeight: FontWeight.w500,
+//           ),
+//           prefixIcon: Container(
+//             padding: const EdgeInsets.all(12),
+//             margin: const EdgeInsets.only(right: 12, left: 4),
+//             decoration: BoxDecoration(
+//               color: Colors.grey[800],
+//               borderRadius: BorderRadius.circular(12),
+//             ),
+//             child: Icon(
+//               prefixIcon,
+//               color: Colors.redAccent,
+//               size: 20,
+//             ),
+//           ),
+//           suffixIcon: suffixIcon != null
+//               ? IconButton(
+//                   icon: Icon(
+//                     suffixIcon,
+//                     color: Colors.grey[500],
+//                     size: 20,
+//                   ),
+//                   onPressed: onSuffixIconPressed,
+//                 )
+//               : null,
+//           border: InputBorder.none,
+//           contentPadding: const EdgeInsets.symmetric(
+//             horizontal: 20,
+//             vertical: 20,
+//           ),
+//           errorStyle: GoogleFonts.inter(
+//             color: Colors.redAccent,
+//             fontSize: 12,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
 
+//   Widget _buildModernButton({
+//     required String text,
+//     required VoidCallback onPressed,
+//     bool isLoading = false,
+//   }) {
+//     return Container(
+//       width: double.infinity,
+//       height: 55,
+//       child: ElevatedButton(
+//         onPressed: isLoading ? null : onPressed,
+//         style: ElevatedButton.styleFrom(
+//           backgroundColor: Colors.transparent,
+//           elevation: 0,
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(16),
+//           ),
+//           padding: EdgeInsets.zero,
+//         ),
+//         child: Ink(
+//           decoration: BoxDecoration(
+//             gradient: const LinearGradient(
+//               colors: [Colors.redAccent, Colors.orangeAccent],
+//             ),
+//             borderRadius: BorderRadius.circular(16),
+//           ),
+//           child: Container(
+//             alignment: Alignment.center,
+//             child: isLoading
+//                 ? const SizedBox(
+//                     width: 24,
+//                     height: 24,
+//                     child: CircularProgressIndicator(
+//                       color: Colors.white,
+//                       strokeWidth: 2,
+//                     ),
+//                   )
+//                 : Text(
+//                     text,
+//                     style: GoogleFonts.inter(
+//                       color: Colors.white,
+//                       fontSize: 16,
+//                       fontWeight: FontWeight.w600,
+//                     ),
+//                   ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _buildGoogleButton() {
+//     return Container(
+//       width: double.infinity,
+//       height: 55,
+//       decoration: BoxDecoration(
+//         color: const Color(0xFF1E1E1E),
+//         borderRadius: BorderRadius.circular(16),
+//         border: Border.all(color: Colors.grey[700]!, width: 1),
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.black.withOpacity(0.2),
+//             blurRadius: 8,
+//             offset: const Offset(0, 2),
+//           ),
+//         ],
+//       ),
+//       child: ElevatedButton(
+//         onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Row(
+//               children: [
+//                 const Icon(Icons.info, color: Colors.white),
+//                 const SizedBox(width: 12),
+//                 Text(
+//                   'Google sign in clicked!',
+//                   style: GoogleFonts.inter(color: Colors.white),
+//                 ),
+//               ],
+//             ),
+//             backgroundColor: Colors.blueAccent,
+//             behavior: SnackBarBehavior.floating,
+//             shape: RoundedRectangleBorder(
+//               borderRadius: BorderRadius.circular(12),
+//             ),
+//           ),
+//         ),
+//         style: ElevatedButton.styleFrom(
+//           backgroundColor: Colors.transparent,
+//           foregroundColor: Colors.white,
+//           elevation: 0,
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(16),
+//           ),
+//         ),
+//         child: Row(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Container(
+//               padding: const EdgeInsets.all(8),
+//               decoration: BoxDecoration(
+//                 color: Colors.grey[800],
+//                 borderRadius: BorderRadius.circular(8),
+//               ),
+//               child: Image.asset(
+//                 'assets/google_logo.png',
+//                 height: 20,
+//                 width: 20,
+//               ),
+//             ),
+//             const SizedBox(width: 16),
+//             Text(
+//               'Log In With Google',
+//               style: GoogleFonts.inter(
+//                 fontSize: 16,
+//                 fontWeight: FontWeight.w600,
+//                 color: Colors.white,
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fotpulse/screens/home_screen.dart';
+
+import '../widgets/custom_button.dart';
+import '../widgets/custom_text_field.dart';
+import '../utils/colors.dart';
 import 'register_screen.dart';
 import 'forgot_password_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -463,6 +644,11 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  // ─── NEW: keys for each TextFormField ───
+  final _emailFieldKey = GlobalKey<FormFieldState<String>>();
+  final _passwordFieldKey = GlobalKey<FormFieldState<String>>();
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
@@ -593,7 +779,7 @@ class _LoginScreenState extends State<LoginScreen> {
     const double iconOverlap = iconDiameter / 2;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF121212), // Dark background like developer screen
+      backgroundColor: const Color(0xFF121212),
       body: Container(
         decoration: const BoxDecoration(
           color: Color(0xFF121212),
@@ -609,7 +795,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: [
-                  // ── header space + animated person icon ──
+                  // ── header + animated icon ──
                   Stack(
                     clipBehavior: Clip.none,
                     alignment: Alignment.topCenter,
@@ -626,13 +812,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 60),
 
-                  // ── form starts here ──
                   Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // Welcome headline
+                        // Headline
                         FadeInDown(
                           delay: const Duration(milliseconds: 200),
                           duration: const Duration(milliseconds: 800),
@@ -661,62 +846,194 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 40),
 
-                        // Email Field
+                        // ── EMAIL FIELD with external error ──
                         FadeInLeft(
                           delay: const Duration(milliseconds: 600),
                           duration: const Duration(milliseconds: 800),
-                          child: _buildModernTextField(
-                            hintText: 'Email',
-                            prefixIcon: Icons.email_outlined,
-                            keyboardType: TextInputType.emailAddress,
-                            controller: _emailController,
-                            validator: (v) {
-                              if (v == null || v.isEmpty) {
-                                return 'Please enter your email';
-                              }
-                              if (!RegExp(
-                                r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                              ).hasMatch(v)) {
-                                return 'Please enter a valid email';
-                              }
-                              return null;
-                            },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // a) the styled field, but hide its built-in error
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF1E1E1E),
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: Colors.grey[700]!, width: 1),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: TextFormField(
+                                  key: _emailFieldKey,
+                                  controller: _emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                  validator: (v) {
+                                    if (v == null || v.isEmpty) {
+                                      return 'Please enter your email';
+                                    }
+                                    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                        .hasMatch(v)) {
+                                      return 'Please enter a valid email';
+                                    }
+                                    return null;
+                                  },
+                                  style: GoogleFonts.inter(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  decoration: InputDecoration(
+                                    hintText: 'Email',
+                                    hintStyle: GoogleFonts.inter(
+                                      color: Colors.grey[500],
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    prefixIcon: Container(
+                                      padding: const EdgeInsets.all(12),
+                                      margin: const EdgeInsets.only(right: 12, left: 4),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[800],
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Icon(
+                                        Icons.email_outlined,
+                                        color: Colors.redAccent,
+                                        size: 20,
+                                      ),
+                                    ),
+                                    border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 20,
+                                    ),
+                                    // hide built-in error
+                                    errorStyle: const TextStyle(height: 0, fontSize: 0),
+                                  ),
+                                ),
+                              ),
+                              // b) our external error message
+                              Builder(builder: (context) {
+                                final errorText = _emailFieldKey.currentState?.errorText;
+                                if (errorText == null) return const SizedBox();
+                                return Padding(
+                                  padding: const EdgeInsets.only(top: 8.0, left: 12.0),
+                                  child: Text(
+                                    errorText,
+                                    style: GoogleFonts.inter(
+                                      color: Colors.redAccent,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ],
                           ),
                         ),
                         const SizedBox(height: 20),
 
-                        // Password Field
+                        // ── PASSWORD FIELD with external error ──
                         FadeInRight(
                           delay: const Duration(milliseconds: 800),
                           duration: const Duration(milliseconds: 800),
-                          child: _buildModernTextField(
-                            hintText: 'Password',
-                            prefixIcon: Icons.lock_outline,
-                            suffixIcon:
-                                _isPasswordVisible
-                                    ? Icons.visibility_off_outlined
-                                    : Icons.visibility_outlined,
-                            obscureText: !_isPasswordVisible,
-                            controller: _passwordController,
-                            onSuffixIconPressed:
-                                () => setState(
-                                  () =>
-                                      _isPasswordVisible = !_isPasswordVisible,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF1E1E1E),
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: Colors.grey[700]!, width: 1),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
                                 ),
-                            validator: (v) {
-                              if (v == null || v.isEmpty) {
-                                return 'Please enter your password';
-                              }
-                              if (v.length < 6) {
-                                return 'Password must be at least 6 characters';
-                              }
-                              return null;
-                            },
+                                child: TextFormField(
+                                  key: _passwordFieldKey,
+                                  controller: _passwordController,
+                                  obscureText: !_isPasswordVisible,
+                                  validator: (v) {
+                                    if (v == null || v.isEmpty) {
+                                      return 'Please enter your password';
+                                    }
+                                    if (v.length < 6) {
+                                      return 'Password must be at least 6 characters';
+                                    }
+                                    return null;
+                                  },
+                                  style: GoogleFonts.inter(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  decoration: InputDecoration(
+                                    hintText: 'Password',
+                                    hintStyle: GoogleFonts.inter(
+                                      color: Colors.grey[500],
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    prefixIcon: Container(
+                                      padding: const EdgeInsets.all(12),
+                                      margin: const EdgeInsets.only(right: 12, left: 4),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[800],
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Icon(
+                                        Icons.lock_outline,
+                                        color: Colors.redAccent,
+                                        size: 20,
+                                      ),
+                                    ),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        _isPasswordVisible
+                                            ? Icons.visibility_off_outlined
+                                            : Icons.visibility_outlined,
+                                        color: Colors.grey[500],
+                                        size: 20,
+                                      ),
+                                      onPressed: () =>
+                                          setState(() => _isPasswordVisible = !_isPasswordVisible),
+                                    ),
+                                    border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 20,
+                                    ),
+                                    errorStyle: const TextStyle(height: 0, fontSize: 0),
+                                  ),
+                                ),
+                              ),
+                              Builder(builder: (context) {
+                                final errorText = _passwordFieldKey.currentState?.errorText;
+                                if (errorText == null) return const SizedBox();
+                                return Padding(
+                                  padding: const EdgeInsets.only(top: 8.0, left: 12.0),
+                                  child: Text(
+                                    errorText,
+                                    style: GoogleFonts.inter(
+                                      color: Colors.redAccent,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ],
                           ),
                         ),
                         const SizedBox(height: 20),
 
-                        // Remember & forgot
+                        // ── rest of form… ──
                         FadeInUp(
                           delay: const Duration(milliseconds: 1000),
                           duration: const Duration(milliseconds: 800),
@@ -774,7 +1091,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 32),
 
-                        // Login button
                         FadeInUp(
                           delay: const Duration(milliseconds: 1200),
                           duration: const Duration(milliseconds: 800),
@@ -786,7 +1102,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 20),
 
-                        // Google button
                         FadeInUp(
                           delay: const Duration(milliseconds: 1400),
                           duration: const Duration(milliseconds: 800),
@@ -794,7 +1109,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 32),
 
-                        // Sign-up link
                         FadeInUp(
                           delay: const Duration(milliseconds: 1800),
                           duration: const Duration(milliseconds: 800),
@@ -837,8 +1151,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   // ─────────────────────────────────────────────────────────
-  //  Modern Helper widgets with dark theme
+  //  Modern Helper widgets with dark theme (unchanged)
   // ─────────────────────────────────────────────────────────
+
   Widget _buildModernProfileCircle() => Container(
     width: 100,
     height: 100,
